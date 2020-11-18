@@ -41,9 +41,13 @@ class MainController extends Controller
 
     public function url($hash)
     {
-        $link = Link::where('hash', $hash)->get();
+        $link = Link::where('hash', $hash)->first();
+        if($link) {
+            return redirect($link->url);
+        } else {
+            return abort(404);
+        }
 
-        return redirect($link[0]->url);
     }
 
 }
